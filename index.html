@@ -46,19 +46,24 @@
     <main id="top">
       <!-- START: HERO -->
       <section class="hero section-dark">
-        <!-- START: Hero Background Video -->
-        <div class="hero-media">
-          <video
-            class="hero-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-            aria-hidden="true"
-          >
-            <source src="assets/vid/vid1 (5).mp4" type="video/mp4" />
-          </video>
+<!-- START: Hero Background Video -->
+<div
+  class="hero-media"
+  data-video-start="18"
+  data-video-end="45"
+>
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  >
+    <source src="assets/vid/1.mp4" type="video/mp4" />
+  </video>
+</div>
+<!-- END: Hero Background Video -->
 
           <!-- START: Blur Glass Layer -->
           <div class="hero-video-blur"></div>
@@ -365,84 +370,55 @@
 
             <div class="portfolio-slider" data-slider="videos">
               <div class="portfolio-track">
-                <!-- VIDEO 01 -->
+                  <!-- START: VIDEO 01 -->
+                  <article
+                    class="portfolio-item portfolio-video-item"
+                    data-lightbox-type="video"
+                    data-lightbox-src="assets/vid/vid1 (4).mp4"
+                    data-lightbox-title="Villa am See"
+                    data-lightbox-description="Cinematic Immobilienfilm"
 
-                <article
-                  class="portfolio-item portfolio-video-item"
-                  data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/vid1 (4).mp4"
-                  data-lightbox-title="Villa am See"
-                  data-lightbox-description="Cinematic Immobilienfilm"
-                >
-                  <div class="portfolio-item-media">
-                    <video
-                      src="assets/vid/vid1 (4).mp4"
-                      autoplay
-                      muted
-                      loop
-                      playsinline
-                      preload="metadata"
-                    ></video>
+                    data-video-start="3.5"
+                    data-video-end="18.2"
+                  >
+                    <div class="portfolio-item-media">
+                      <video
+                        src="assets/vid/vid1 (4).mp4"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                      ></video>
 
-                    <span class="portfolio-item-number"> 01 </span>
+                      <span class="portfolio-item-number">01</span>
+                      <span class="portfolio-item-type">FILM</span>
 
-                    <span class="portfolio-item-type"> FILM </span>
+                      <button class="portfolio-open" type="button">
+                        ↗
+                      </button>
+                    </div>
+                  </article>
+                  <!-- END: VIDEO 01 -->
 
-                    <button
-                      class="portfolio-open"
-                      type="button"
-                      aria-label="Villa am See öffnen"
-                    >
-                      ↗
-                    </button>
-                  </div>
-                </article>
-
-                <!-- VIDEO 02 -->
-
+<!-- VIDEO 02 --> <article class="portfolio-item portfolio-video-item" data-lightbox-type="video" data-lightbox-src="assets/vid/vid1 (5).mp4" data-lightbox-title="Modern Residence" data-lightbox-description="Immobilienfilm"  > <div class="portfolio-item-media"> <video src="assets/vid/vid1 (5).mp4" autoplay muted loop playsinline preload="metadata" ></video> <span class="portfolio-item-number"> 02 </span> <span class="portfolio-item-type"> FILM </span> <button class="portfolio-open" type="button" aria-label="Modern Residence öffnen" > ↗ </button> </div> </article>
+<!-- END: VIDEO 02 -->
+                  <!-- START: VIDEO 03 -->
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
                   data-lightbox-src="assets/vid/vid1 (3).mp4"
-                  data-lightbox-title="Modern Residence"
-                  data-lightbox-description="Immobilienfilm"
+                  data-lightbox-title="Inspirations Tour"
+                  data-lightbox-description="Dieses Video ist ein Beispiel dafür, wie eine moderne Property Walkaround bzw. House Tour umgesetzt werden kann. Das gezeigte Projekt wurde nicht von mir produziert und dient auf dieser Website ausschließlich als visuelle Inspiration und Referenz für die Art von Immobilienvideos, die ich zukünftig umsetzen kann.
+
+Ich möchte damit zeigen, wie eine Immobilie durch Bewegung, Perspektiven und einen filmischen Look präsentiert werden kann. Eigene Projekte in diesem Stil befinden sich aktuell noch im Aufbau."
+
+                  data-video-start="8"
+                  data-video-end="35"
                 >
                   <div class="portfolio-item-media">
                     <video
                       src="assets/vid/vid1 (3).mp4"
-                      autoplay
-                      muted
-                      loop
-                      playsinline
-                      preload="metadata"
-                    ></video>
-
-                    <span class="portfolio-item-number"> 02 </span>
-
-                    <span class="portfolio-item-type"> FILM </span>
-
-                    <button
-                      class="portfolio-open"
-                      type="button"
-                      aria-label="Modern Residence öffnen"
-                    >
-                      ↗
-                    </button>
-                  </div>
-                </article>
-
-                <!-- VIDEO 03 -->
-
-                <article
-                  class="portfolio-item portfolio-video-item"
-                  data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/vid1 (4).mp4"
-                  data-lightbox-title="House Tour"
-                  data-lightbox-description="Property Walkaround"
-                >
-                  <div class="portfolio-item-media">
-                    <video
-                      src="assets/vid/vid1 (4).mp4"
                       autoplay
                       muted
                       loop
@@ -463,19 +439,19 @@
                     </button>
                   </div>
                 </article>
-
-                <!-- VIDEO 04 -->
+                <!-- END: VIDEO 03 -->
+                <!-- START: VIDEO 04 -->
 
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/vid1 (5).mp4"
+                  data-lightbox-src="assets/vid/sanduhr.mp4"
                   data-lightbox-title="Urban Living"
                   data-lightbox-description="Real Estate Film"
                 >
                   <div class="portfolio-item-media">
                     <video
-                      src="assets/vid/vid1 (5).mp4"
+                      src="assets/vid/sanduhr.mp4"
                       autoplay
                       muted
                       loop
@@ -497,18 +473,18 @@
                   </div>
                 </article>
 
-                <!-- VIDEO 05 -->
+                <!-- START: VIDEO 05 -->
 
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/vid5.mp4"
+                  data-lightbox-src="assets/vid/sanduhr.mp4"
                   data-lightbox-title="Luxury Property"
                   data-lightbox-description="Luxury Real Estate Film"
                 >
                   <div class="portfolio-item-media">
                     <video
-                      src="assets/vid/vid5.mp4"
+                      src="assets/vid/sanduhr.mp4"
                       autoplay
                       muted
                       loop
@@ -529,6 +505,7 @@
                     </button>
                   </div>
                 </article>
+                <!-- END: VIDEO 05 -->
               </div>
             </div>
           </section>
@@ -582,13 +559,13 @@
                 <article
                   class="portfolio-item"
                   data-lightbox-type="image"
-                  data-lightbox-src="assets/img/1 (7).jpg"
+                  data-lightbox-src="assets/img/1 (2).jpg"
                   data-lightbox-title="Urban Residence"
                   data-lightbox-description="Interior Photography"
                 >
                   <div class="portfolio-item-media">
                     <img
-                      src="assets/img/1 (7).jpg"
+                      src="assets/img/1 (2).jpg"
                       alt="Urban Residence"
                       loading="lazy"
                     />
@@ -642,13 +619,13 @@
                 <article
                   class="portfolio-item"
                   data-lightbox-type="image"
-                  data-lightbox-src="assets/img/1 (23).jpg"
+                  data-lightbox-src="assets/img/1 (4).jpg"
                   data-lightbox-title="Architecture Detail"
                   data-lightbox-description="Architectural Photography"
                 >
                   <div class="portfolio-item-media">
                     <img
-                      src="assets/img/1 (23).jpg"
+                      src="assets/img/1 (4).jpg"
                       alt="Architekturdetail"
                       loading="lazy"
                     />
@@ -672,13 +649,13 @@
                 <article
                   class="portfolio-item"
                   data-lightbox-type="image"
-                  data-lightbox-src="assets/img/1 (24).jpg"
+                  data-lightbox-src="assets/img/1 (5).jpg"
                   data-lightbox-title="Modern Interior"
                   data-lightbox-description="Interior Photography"
                 >
                   <div class="portfolio-item-media">
                     <img
-                      src="assets/img/1 (24).jpg"
+                      src="assets/img/1 (5).jpg"
                       alt="Modernes Interior"
                       loading="lazy"
                     />
@@ -702,18 +679,304 @@
                 <article
                   class="portfolio-item"
                   data-lightbox-type="image"
-                  data-lightbox-src="assets/img/1 (25).jpg"
+                  data-lightbox-src="assets/img/1 (11).jpg"
                   data-lightbox-title="Exterior"
                   data-lightbox-description="Real Estate Photography"
                 >
                   <div class="portfolio-item-media">
                     <img
-                      src="assets/img/1 (25).jpg"
+                      src="assets/img/1 (11).jpg"
                       alt="Immobilien Außenaufnahme"
                       loading="lazy"
                     />
 
                     <span class="portfolio-item-number"> 05 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Immobilien Außenaufnahme öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+
+                    <!-- IMAGE 06 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (9).jpg"
+                  data-lightbox-title="Interior"
+                  data-lightbox-description="Interior Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (9).jpg"
+                      alt="Modernes Interior"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 06 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Modernes Interior öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+
+                <!-- IMAGE 07 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (12).jpg"
+                  data-lightbox-title="Exterior"
+                  data-lightbox-description="Real Estate Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (12).jpg"
+                      alt="Immobilien Außenaufnahme"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 07 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Immobilien Außenaufnahme öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+
+                <!-- IMAGE 08 -->
+
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (22).jpg"
+                  data-lightbox-title="Interior"
+                  data-lightbox-description="Interior Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (22).jpg"
+                      alt="Modernes Interior"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 08 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Modernes Interior öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+
+                <!-- IMAGE 09 -->
+
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (14).jpg"
+                  data-lightbox-title="Exterior"
+                  data-lightbox-description="Real Estate Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (14).jpg"
+                      alt="Immobilien Außenaufnahme"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 09 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Immobilien Außenaufnahme öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 10 -->
+                 <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (15).jpg"
+                  data-lightbox-title="Interior"
+                  data-lightbox-description="Interior Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (15).jpg"
+                      alt="Modernes Interior"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 10 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Modernes Interior öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 11 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/1 (24).jpg"
+                  data-lightbox-title="Exterior"
+                  data-lightbox-description="Real Estate Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/1 (24).jpg"
+                      alt="Immobilien Außenaufnahme"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 11 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Immobilien Außenaufnahme öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 12 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/soon.webp"
+                  data-lightbox-title="Interior"
+                  data-lightbox-description="Interior Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/soon.webp"
+                      alt="Modernes Interior"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 12 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Modernes Interior öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 13 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/soon.webp"
+                  data-lightbox-title="Exterior"
+                  data-lightbox-description="Real Estate Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/soon.webp"
+                      alt="Immobilien Außenaufnahme"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 13 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Immobilien Außenaufnahme öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 14 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/soon.webp"
+                  data-lightbox-title="Interior"
+                  data-lightbox-description="Interior Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/soon.webp"
+                      alt="Modernes Interior"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 14 </span>
+
+                    <span class="portfolio-item-type"> PHOTO </span>
+
+                    <button
+                      class="portfolio-open"
+                      type="button"
+                      aria-label="Modernes Interior öffnen"
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </article>
+                <!-- IMAGE 15 -->
+                <article
+                  class="portfolio-item"
+                  data-lightbox-type="image"
+                  data-lightbox-src="assets/img/soon.webp"
+                  data-lightbox-title="Exterior"
+                  data-lightbox-description="Real Estate Photography"
+                >
+                  <div class="portfolio-item-media">
+                    <img
+                      src="assets/img/soon.webp"
+                      alt="Immobilien Außenaufnahme"
+                      loading="lazy"
+                    />
+
+                    <span class="portfolio-item-number"> 15 </span>
 
                     <span class="portfolio-item-type"> PHOTO </span>
 
@@ -815,6 +1078,9 @@
                   data-lightbox-src="assets/vid/vid1 (2).mp4"
                   data-lightbox-title="Future Living"
                   data-lightbox-description="AI Property Visualization"
+
+                    data-video-start="3"
+                    data-video-end="32"
                 >
                   <div class="portfolio-item-media">
                     <video
@@ -845,13 +1111,16 @@
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/vid1 (3).mp4"
+                  data-lightbox-src="assets/vid/1.mp4"
                   data-lightbox-title="Architectural Motion"
                   data-lightbox-description="AI Architecture Film"
+
+                  data-video-start="16"
+                  data-video-end="45"
                 >
                   <div class="portfolio-item-media">
                     <video
-                      src="assets/vid/vid1 (3).mp4"
+                      src="assets/vid/1.mp4"
                       autoplay
                       muted
                       loop
@@ -878,13 +1147,13 @@
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/ai-video-04.mp4"
+                  data-lightbox-src="assets/vid/sanduhr.mp4"
                   data-lightbox-title="Virtual Walkthrough"
                   data-lightbox-description="AI Walkthrough"
                 >
                   <div class="portfolio-item-media">
                     <video
-                      src="assets/vid/ai-video-04.mp4"
+                      src="assets/vid/sanduhr.mp4"
                       autoplay
                       muted
                       loop
@@ -911,13 +1180,13 @@
                 <article
                   class="portfolio-item portfolio-video-item"
                   data-lightbox-type="video"
-                  data-lightbox-src="assets/vid/ai-video-05.mp4"
+                  data-lightbox-src="assets/vid/sanduhr.mp4"
                   data-lightbox-title="AI Cinematic"
                   data-lightbox-description="AI Cinematic Property Film"
                 >
                   <div class="portfolio-item-media">
                     <video
-                      src="assets/vid/ai-video-05.mp4"
+                      src="assets/vid/sanduhr.mp4"
                       autoplay
                       muted
                       loop
@@ -1633,6 +1902,13 @@
               Diese Datenschutzerklärung kann angepasst werden, wenn sich
               technische oder rechtliche Rahmenbedingungen dieser Website
               ändern.
+            </p>
+
+            <h3>7. Hinweis zu Portfolio-Inhalten</h3>
+            <p>
+              Ein Teil der auf dieser Website gezeigten Foto- und Videoinhalte wurde von mir selbst erstellt. Weitere Inhalte dienen als Inspiration, Referenz oder Beispiel für mögliche Umsetzungen und wurden nicht von mir produziert.
+
+Bei den verwendeten Referenzmaterialien handelt es sich um urheberrechtlich geschützte Inhalte der jeweiligen Anbieter bzw. Urheber. Die Nutzung auf dieser Website erfolgt mit deren entsprechender Freigabe bzw. Genehmigung. Die Inhalte werden nicht als eigene Produktion dargestellt.
             </p>
           </div>
         </div>

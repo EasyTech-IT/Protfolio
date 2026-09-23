@@ -292,6 +292,192 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /* =========================================================
+   START: INDIVIDUELLE VIDEO-SCHNITTE
+   ---------------------------------------------------------
+   JEDES VIDEO KANN EINEN EIGENEN SCHNITT HABEN.
+
+   HTML:
+
+   data-video-start="3.5"
+   data-video-end="18.2"
+
+   Bedeutet:
+
+   Start = 3,5 Sekunden
+   Ende  = 18,2 Sekunden
+
+   Wichtig:
+   Die originale MP4-Datei wird NICHT verändert.
+   Nur die Wiedergabe auf der Website wird geschnitten.
+   ========================================================= */
+
+  function setupIndividualVideoTrim(video) {
+    if (!video) {
+      return;
+    }
+
+    const item = video.closest(".portfolio-item");
+
+    if (!item) {
+      return;
+    }
+
+    /*
+     * Werte aus dem HTML lesen
+     */
+
+    const startTime = parseFloat(item.dataset.videoStart);
+    const endTime = parseFloat(item.dataset.videoEnd);
+
+    /*
+     * Wenn für dieses Video kein Schnitt definiert wurde,
+     * nichts machen.
+     */
+
+    if (!Number.isFinite(startTime) || !Number.isFinite(endTime)) {
+      return;
+    }
+
+    /*
+     * Prüfen, ob die Werte sinnvoll sind.
+     */
+
+    if (startTime < 0 || endTime <= startTime) {
+      console.warn("Ungültiger Video-Schnitt:", item);
+
+      return;
+    }
+
+    /*
+     * -------------------------------------------------------
+     * ZUM STARTPUNKT SPRINGEN
+     * -------------------------------------------------------
+     */
+
+    function setStartPosition() {
+      if (!Number.isFinite(video.duration)) {
+        return;
+      }
+
+      /*
+       * Endpunkt darf niemals länger als das Video sein.
+       */
+
+      const safeEnd = Math.min(endTime, video.duration);
+
+      /*
+       * Start darf nicht hinter dem Ende liegen.
+       */
+
+      if (startTime >= safeEnd) {
+        return;
+      }
+
+      /*
+       * Nur springen, wenn wir außerhalb
+       * des gewünschten Bereichs sind.
+       */
+
+      if (video.currentTime < startTime || video.currentTime >= safeEnd) {
+        video.currentTime = startTime;
+      }
+    }
+
+    /*
+     * -------------------------------------------------------
+     * VIDEO-DATEN
+     * -------------------------------------------------------
+     *
+     * Falls metadata bereits geladen wurde, funktioniert
+     * die Prüfung trotzdem.
+     */
+
+    if (video.readyState >= 1) {
+      setStartPosition();
+    }
+
+    video.addEventListener("loadedmetadata", setStartPosition);
+
+    video.addEventListener("loadeddata", setStartPosition);
+
+    /*
+     * -------------------------------------------------------
+     * BEIM ABSPIELEN
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("play", () => {
+      setStartPosition();
+    });
+
+    /*
+     * -------------------------------------------------------
+     * WÄHREND DER WIEDERGABE
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("timeupdate", () => {
+      if (!Number.isFinite(video.duration)) {
+        return;
+      }
+
+      const safeEnd = Math.min(endTime, video.duration);
+
+      /*
+       * Sobald der individuelle Endpunkt erreicht ist:
+       *
+       * zurück zum individuellen Start
+       */
+
+      if (video.currentTime >= safeEnd) {
+        video.currentTime = startTime;
+
+        /*
+         * Video weiterlaufen lassen
+         */
+
+        if (!video.paused) {
+          const promise = video.play();
+
+          if (promise && typeof promise.catch === "function") {
+            promise.catch(() => {});
+          }
+        }
+      }
+    });
+
+    /*
+     * -------------------------------------------------------
+     * FALLS DAS VIDEO TROTZDEM BIS ZUM ECHTEN ENDE LÄUFT
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("ended", () => {
+      video.currentTime = startTime;
+
+      const promise = video.play();
+
+      if (promise && typeof promise.catch === "function") {
+        promise.catch(() => {});
+      }
+    });
+  }
+
+  /*
+   * ---------------------------------------------------------
+   * ALLE PORTFOLIO-VIDEOS INITIALISIEREN
+   * ---------------------------------------------------------
+   */
+
+  portfolio.querySelectorAll(".portfolio-item video").forEach((video) => {
+    setupIndividualVideoTrim(video);
+  });
+
+  /* =========================================================
+   END: INDIVIDUELLE VIDEO-SCHNITTE
+========================================================= */
+
   /* =======================================================
      PORTFOLIO VIDEOS
   ======================================================= */
@@ -479,10 +665,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =======================================================
-     CREATE VIDEO
-  ======================================================= */
+   CREATE VIDEO — MIT INDIVIDUELLEM SCHNITT
+======================================================= */
 
-  function createVideo(src) {
+  function createVideo(src, item) {
     const video = document.createElement("video");
 
     video.src = src;
@@ -495,10 +681,113 @@ document.addEventListener("DOMContentLoaded", () => {
     video.preload = "auto";
 
     video.setAttribute("controls", "");
-
     video.setAttribute("playsinline", "");
 
+    /*
+     * -------------------------------------------------------
+     * INDIVIDUELLE START-/ENDZEIT AUS DEM HTML
+     * -------------------------------------------------------
+     */
+
+    const startTime = item ? parseFloat(item.dataset.videoStart) : NaN;
+
+    const endTime = item ? parseFloat(item.dataset.videoEnd) : NaN;
+
+    const hasCustomTrim =
+      Number.isFinite(startTime) &&
+      Number.isFinite(endTime) &&
+      endTime > startTime;
+
+    /*
+     * -------------------------------------------------------
+     * VIDEO STARTEN
+     * -------------------------------------------------------
+     */
+
     video.addEventListener("loadedmetadata", () => {
+      /*
+       * Individueller Schnitt vorhanden
+       */
+
+      if (hasCustomTrim) {
+        if (startTime >= 0 && startTime < video.duration) {
+          video.currentTime = startTime;
+        }
+      }
+
+      /*
+       * Video abspielen
+       */
+
+      const promise = video.play();
+
+      if (promise && typeof promise.catch === "function") {
+        promise.catch(() => {});
+      }
+    });
+
+    /*
+     * -------------------------------------------------------
+     * BEIM ABSPIELEN NICHT VOR DEM STARTPUNKT BLEIBEN
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("play", () => {
+      if (!hasCustomTrim) {
+        return;
+      }
+
+      if (video.currentTime < startTime) {
+        video.currentTime = startTime;
+      }
+    });
+
+    /*
+     * -------------------------------------------------------
+     * INDIVIDUELLER ENDPUNKT
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("timeupdate", () => {
+      if (!hasCustomTrim) {
+        return;
+      }
+
+      /*
+       * Sobald der gewünschte Endpunkt erreicht wurde,
+       * zurück zum Startpunkt.
+       */
+
+      if (video.currentTime >= endTime) {
+        video.pause();
+
+        video.currentTime = startTime;
+
+        /*
+         * Danach wieder automatisch abspielen.
+         */
+
+        const promise = video.play();
+
+        if (promise && typeof promise.catch === "function") {
+          promise.catch(() => {});
+        }
+      }
+    });
+
+    /*
+     * -------------------------------------------------------
+     * FALLBACK: ECHTES VIDEOENDE
+     * -------------------------------------------------------
+     */
+
+    video.addEventListener("ended", () => {
+      if (!hasCustomTrim) {
+        return;
+      }
+
+      video.currentTime = startTime;
+
       const promise = video.play();
 
       if (promise && typeof promise.catch === "function") {
@@ -594,7 +883,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       lightboxMedia.appendChild(image);
     } else if (type === "video") {
-      const video = createVideo(item.dataset.lightboxSrc);
+      const video = createVideo(item.dataset.lightboxSrc, item);
 
       lightboxMedia.appendChild(video);
     } else if (type === "before-after") {
@@ -1022,4 +1311,140 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* =========================================================
    END: LEGAL MODALS
+========================================================= */
+
+/* =========================================================
+   START: HERO VIDEO TRIM
+   Spielt nur 00:16 bis 00:45 ab
+========================================================= */
+
+(function () {
+  function initHeroVideoTrim() {
+    const heroMedia = document.querySelector(".hero-media");
+    const heroVideo = document.querySelector(".hero-video");
+
+    if (!heroMedia || !heroVideo) {
+      return;
+    }
+
+    const startTime = parseFloat(heroMedia.dataset.videoStart);
+
+    const endTime = parseFloat(heroMedia.dataset.videoEnd);
+
+    if (!Number.isFinite(startTime) || !Number.isFinite(endTime)) {
+      console.warn("Hero Video Trim: Start- oder Endzeit fehlt.");
+      return;
+    }
+
+    if (endTime <= startTime) {
+      console.warn("Hero Video Trim: Endzeit muss größer als Startzeit sein.");
+      return;
+    }
+
+    /*
+      Normales HTML-Loop deaktivieren.
+      Das Video soll NICHT von 0:00 beginnen.
+    */
+    heroVideo.loop = false;
+
+    heroVideo.removeAttribute("loop");
+
+    /*
+      Startposition setzen,
+      sobald die Videodaten verfügbar sind.
+    */
+    function setStartPosition() {
+      if (
+        heroVideo.readyState >= 1 &&
+        (heroVideo.currentTime < startTime || heroVideo.currentTime >= endTime)
+      ) {
+        try {
+          heroVideo.currentTime = startTime;
+        } catch (error) {
+          console.warn(
+            "Hero Video: Startposition konnte noch nicht gesetzt werden.",
+            error,
+          );
+        }
+      }
+    }
+
+    /*
+      Sobald Metadaten geladen sind:
+      direkt auf Sekunde 16 springen.
+    */
+    heroVideo.addEventListener("loadedmetadata", function () {
+      setStartPosition();
+
+      /*
+          Danach starten.
+        */
+      heroVideo.play().catch(function () {});
+    });
+
+    /*
+      Falls das Video bereits geladen war.
+    */
+    if (heroVideo.readyState >= 1) {
+      setStartPosition();
+
+      heroVideo.play().catch(function () {});
+    }
+
+    /*
+      Falls irgendein anderer Code das Video
+      wieder auf 0:00 setzt und startet.
+    */
+    heroVideo.addEventListener("play", function () {
+      if (
+        heroVideo.currentTime < startTime ||
+        heroVideo.currentTime >= endTime
+      ) {
+        try {
+          heroVideo.currentTime = startTime;
+        } catch (error) {}
+      }
+    });
+
+    /*
+      Wichtigster Teil:
+      Sobald Sekunde 45 erreicht wird,
+      wieder auf Sekunde 16 springen.
+    */
+    heroVideo.addEventListener("timeupdate", function () {
+      if (heroVideo.currentTime >= endTime) {
+        heroVideo.pause();
+
+        try {
+          heroVideo.currentTime = startTime;
+        } catch (error) {}
+
+        heroVideo.play().catch(function () {});
+      }
+    });
+
+    /*
+      Falls der Browser trotzdem "ended" auslöst.
+    */
+    heroVideo.addEventListener("ended", function () {
+      try {
+        heroVideo.currentTime = startTime;
+      } catch (error) {}
+
+      heroVideo.play().catch(function () {});
+    });
+  }
+
+  /*
+    Falls dein Script am Ende des HTML geladen wird.
+  */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeroVideoTrim);
+  } else {
+    initHeroVideoTrim();
+  }
+})();
+
+/* =========================================================
+   END: HERO VIDEO TRIM
 ========================================================= */
