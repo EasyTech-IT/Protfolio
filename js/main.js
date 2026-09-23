@@ -923,3 +923,103 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================================
    END: PORTFOLIO SYSTEM — FINAL
 ========================================================= */
+
+/* =========================================================
+   START: LEGAL MODALS
+========================================================= */
+
+(function () {
+  const modalTriggers = document.querySelectorAll(".footer-modal-trigger");
+
+  const modals = document.querySelectorAll(".legal-modal");
+
+  let activeModal = null;
+
+  /* ---------------------------------------------------------
+     MODAL ÖFFNEN
+  --------------------------------------------------------- */
+
+  function openModal(modal) {
+    if (!modal) return;
+
+    activeModal = modal;
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("modal-open");
+
+    const closeButton = modal.querySelector(".legal-modal-close");
+
+    if (closeButton) {
+      setTimeout(() => {
+        closeButton.focus();
+      }, 100);
+    }
+  }
+
+  /* ---------------------------------------------------------
+     MODAL SCHLIESSEN
+  --------------------------------------------------------- */
+
+  function closeModal(modal) {
+    if (!modal) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("modal-open");
+
+    activeModal = null;
+  }
+
+  /* ---------------------------------------------------------
+     FOOTER BUTTONS
+  --------------------------------------------------------- */
+
+  modalTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const modalId = trigger.dataset.modal;
+      const modal = document.getElementById(modalId);
+
+      openModal(modal);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     SCHLIESSEN ÜBER X / BACKDROP
+  --------------------------------------------------------- */
+
+  modals.forEach((modal) => {
+    modal.addEventListener("click", (event) => {
+      if (event.target.matches("[data-modal-close]")) {
+        closeModal(modal);
+      }
+    });
+  });
+
+  /* ---------------------------------------------------------
+     ESC-TASTE
+  --------------------------------------------------------- */
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && activeModal) {
+      closeModal(activeModal);
+    }
+  });
+
+  /* ---------------------------------------------------------
+     SCROLLEN DER HAUPTSEITE VERHINDERN
+  --------------------------------------------------------- */
+
+  window.addEventListener("keydown", (event) => {
+    if (activeModal && ["Space", "ArrowUp", "ArrowDown"].includes(event.code)) {
+      // Scrollen innerhalb des Modals bleibt möglich.
+      // Die Seite darunter wird durch CSS blockiert.
+    }
+  });
+})();
+
+/* =========================================================
+   END: LEGAL MODALS
+========================================================= */
